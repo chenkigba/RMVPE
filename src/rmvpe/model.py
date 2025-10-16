@@ -66,3 +66,4 @@ class E2E0(nn.Module):
         x = self.cnn(self.unet(mel)).transpose(1, 2).flatten(-2)
         x = self.fc(x)
         return x
+

@@ -83,3 +83,4 @@ def to_local_average_cents(salience, center=None, thred=0.0):
                          range(salience.shape[0])])
 
     raise Exception("label should be either 1d or 2d ndarray")
+

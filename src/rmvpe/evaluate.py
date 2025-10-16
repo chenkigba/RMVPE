@@ -59,3 +59,4 @@ def evaluate(dataset, model, hop_length, device, pitch_th=0.0):
         print(data['file'], ':\t', rpa, '\t', oa)
 
     return metrics
+

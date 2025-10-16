@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.18.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rmvpe"
+version = "0.1.0"
+description = "RMVPE: Robust Melody/Vocal Pitch Estimation models and utilities"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+# authors = [{ name = "Your Name", email = "you@example.com" }]
+dependencies = [
+  "numpy>=1.23",
+  "scipy>=1.9",
+  "librosa>=0.10",
+  "pandas>=1.5",
+  "tqdm>=4.64",
+  "mir_eval>=0.7"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+  { include = "rmvpe", from = "src" }
+]
+

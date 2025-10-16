@@ -77,3 +77,4 @@ class Inference:
                 output.append(segment[self.seg_frames // 4: int(self.seg_frames * 0.75)])
         output = torch.cat(output, dim=0)
         return output
+

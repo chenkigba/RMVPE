@@ -10,7 +10,7 @@ from tqdm import tqdm
 import numpy as np
 
 from rmvpe import MIR1K, E2E, cycle, summary, SAMPLE_RATE, FL
-from evaluate import evaluate
+from rmvpe.evaluate import evaluate
 
 
 def train(alpha, gamma):
@@ -101,9 +101,11 @@ def train(alpha, gamma):
             break
 
 
-alpha_list = [6, 7, 8, 9, 10]
-for alpha in alpha_list:
-    print('' * 250)
-    print(alpha)
-    print('' * 250)
-    train(alpha, 0)
+if __name__ == "__main__":
+    alpha_list = [6, 7, 8, 9, 10]
+    for alpha in alpha_list:
+        print('' * 250)
+        print(alpha)
+        print('' * 250)
+        train(alpha, 0)
+
