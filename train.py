@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 import numpy as np
 
-from src import MIR1K, E2E, cycle, summary, SAMPLE_RATE, FL
+from rmvpe import MIR1K, E2E, cycle, summary, SAMPLE_RATE, FL
 from evaluate import evaluate
 
 

@@ -3,7 +3,7 @@ import torch
 from tqdm import tqdm
 
 from collections import defaultdict
-from src import to_local_average_cents, bce, SAMPLE_RATE, WINDOW_LENGTH
+from rmvpe import to_local_average_cents, bce, SAMPLE_RATE, WINDOW_LENGTH
 from mir_eval.melody import raw_pitch_accuracy, to_cent_voicing, raw_chroma_accuracy, overall_accuracy
 from mir_eval.melody import voicing_recall, voicing_false_alarm
 import torch.nn.functional as F
