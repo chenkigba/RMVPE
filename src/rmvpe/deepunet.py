@@ -1,6 +1,27 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from .constants import N_MELS
+
+
+def _match_size(x: torch.Tensor, ref: torch.Tensor) -> torch.Tensor:
+    """Center-pad/crop spatial dims of x to match ref (H, W)."""
+    _, _, h, w = x.shape
+    _, _, hr, wr = ref.shape
+    # Pad if smaller
+    pad_t = max(0, (hr - h) // 2)
+    pad_b = max(0, hr - h - pad_t)
+    pad_l = max(0, (wr - w) // 2)
+    pad_r = max(0, wr - w - pad_l)
+    if pad_t or pad_b or pad_l or pad_r:
+        x = F.pad(x, (pad_l, pad_r, pad_t, pad_b))  # (left, right, top, bottom)
+        _, _, h, w = x.shape
+    # Crop if larger
+    crop_t = max(0, (h - hr) // 2)
+    crop_l = max(0, (w - wr) // 2)
+    if h > hr or w > wr:
+        x = x[:, :, crop_t:crop_t + hr, crop_l:crop_l + wr]
+    return x
 
 
 class ConvBlockRes(nn.Module):
@@ -128,12 +149,16 @@ class DeepUnet(nn.Module):
         x = self.inter(x5_2)
 
         x = self.de5(x)
+        x = _match_size(x, x4_1)
         x = torch.cat([x, x4_1], dim=1)
         x = self.de4(x)
+        x = _match_size(x, x3_1)
         x = torch.cat([x, x3_1], dim=1)
         x = self.de3(x)
+        x = _match_size(x, x2_1)
         x = torch.cat([x, x2_1], dim=1)
         x = self.de2(x)
+        x = _match_size(x, x1_1)
         x = torch.cat([x, x1_1], dim=1)
         x = self.de1(x)
 
@@ -165,8 +190,10 @@ class DeepUnet0(nn.Module):
         x = self.inter(x3_2)
 
         x = self.de3(x)
+        x = _match_size(x, x3_1)
         x = torch.cat([x, x3_1], dim=1)
         x = self.de2(x)
+        x = _match_size(x, x2_1)
         x = torch.cat([x, x2_1], dim=1)
         x = self.de1(x)
 
