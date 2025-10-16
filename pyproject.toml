@@ -20,7 +20,5 @@ dependencies = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = [
-  { include = "rmvpe", from = "src" }
-]
+packages = ["src/rmvpe"]
 
